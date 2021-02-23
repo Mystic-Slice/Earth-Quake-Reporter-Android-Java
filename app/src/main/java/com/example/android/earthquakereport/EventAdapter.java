@@ -15,6 +15,7 @@ import org.w3c.dom.Text;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 public class EventAdapter extends ArrayAdapter<Event> {
 
@@ -48,6 +49,7 @@ public class EventAdapter extends ArrayAdapter<Event> {
         // Text view for Magnitude
         TextView magnitudeTextView = listItemView.findViewById(R.id.magnitude_text_view);
         magnitudeTextView.setText(formatMagnitude(currentEvent.getMagnitude()));
+
         GradientDrawable magnitudeCircle =(GradientDrawable) magnitudeTextView.getBackground();
         int magnitudeColor = getMagnitudeColor(currentEvent.getMagnitude());
         magnitudeCircle.setColor(ContextCompat.getColor(getContext(),magnitudeColor));
