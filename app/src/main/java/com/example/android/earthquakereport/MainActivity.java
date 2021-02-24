@@ -109,6 +109,10 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         String minMagnitude = sharedPrefs.getString(
                 getString(R.string.settings_min_magnitude_key),
                 getString(R.string.settings_min_magnitude_default));
+        String orderBy = sharedPrefs.getString(
+                getString(R.string.settings_order_by_key),
+                getString(R.string.settings_order_by_default)
+        );
         String url = USGS_REQUEST_URL;
 
         String starttime = "2000-01-01";
@@ -121,6 +125,7 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         url += "&endtime="+endtime;
         url += "&minmagnitude="+minMagnitude;
         url += "&limit="+limit;
+        url += "&orderby="+orderBy;
 
         Log.i("url",url);
 
