@@ -202,6 +202,7 @@ public final class QueryUtils {
         } catch (IOException e) {
             Log.e(LOG_TAG, "Problem making the HTTP request.", e);
         }
+        Log.i("JSON",jsonResponse);
 
         // Extract relevant fields from the JSON response and create a list of {@link Earthquake}s
         List<Event> earthquakes = extractFeaturesFromJson(jsonResponse);

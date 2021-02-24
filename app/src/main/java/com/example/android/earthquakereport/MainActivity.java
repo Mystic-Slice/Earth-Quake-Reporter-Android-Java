@@ -3,16 +3,20 @@ package com.example.android.earthquakereport;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.UserHandle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.View;
 
 import android.view.Menu;
@@ -35,8 +39,8 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
     private TextView mEmptyStateTextView;
 
     public static final String LOG_TAG = MainActivity.class.getName();
-    private static final String USGS_REQUEST_URL =
-            "https://earthquake.usgs.gov/fdsnws/event/1/query?format=geojson&orderby=time&minmag=2&limit=30";
+    private static String USGS_REQUEST_URL =
+            "https://earthquake.usgs.gov/fdsnws/event/1/query?";
     private EventAdapter mAdapter;
 
     private static final int EARTHQUAKE_LOADER_ID = 1;
@@ -100,7 +104,27 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
 
     @Override
     public Loader<List<Event>> onCreateLoader(int id, Bundle bundle) {
-        return new EventLoader(this, USGS_REQUEST_URL);
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        String minMagnitude = sharedPrefs.getString(
+                getString(R.string.settings_min_magnitude_key),
+                getString(R.string.settings_min_magnitude_default));
+        String url = USGS_REQUEST_URL;
+
+        String starttime = "2000-01-01";
+        String endtime = "2020-02-24";
+        String format = "geojson";
+        String limit = "20";
+
+        url += "format="+format;
+        url += "&starttime="+starttime;
+        url += "&endtime="+endtime;
+        url += "&minmagnitude="+minMagnitude;
+        url += "&limit="+limit;
+
+        Log.i("url",url);
+
+        return new EventLoader(this, url);
     }
 
     @Override
@@ -125,4 +149,22 @@ public class MainActivity extends AppCompatActivity implements LoaderCallbacks<L
         // Loader reset, so we can clear out our existing data.
         mAdapter.clear();
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings) {
+            Intent settingsIntent = new Intent(this, Settings.class);
+            startActivity(settingsIntent);
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
