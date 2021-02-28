@@ -1,7 +1,7 @@
 # Earth-Quake-Reporter-Android-Java
 
 App: 
-This is one of the first android app that i have created. This was a follow along coding tutorial in Udacity.
+This is one of the first android apps that i have created. This was a follow along coding tutorial in Udacity.
 
 New Concept: 
 Networking
