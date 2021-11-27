@@ -1,13 +1,7 @@
 # Earth-Quake-Reporter-Android-Java
 
-App: 
-This is one of the first android apps that i have created. This was a follow along coding tutorial in Udacity.
+**App:** This app is built along the tutorial in Udacity.
 
-New Concept: 
-Networking
+**New Concept:** Networking (HTTP requests)
 
-Functions: 
-This app receives the information about Earthquakes from USGS and displays the same to the user.
-
-Creator: 
-Mystic Slice
+**Functions:** This app receives the information about Earthquakes from USGS and displays the same to the user.
